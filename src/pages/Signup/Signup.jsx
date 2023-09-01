@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-/** jsxImportSource @emotion/react */
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SInputLayout = css`
     margin-bottom: 15px;
@@ -16,6 +17,8 @@ const SInputLayout = css`
 `;
 
 function Signup(props) {
+    const navigate = useNavigate();
+
     const [ signupUser, setSignupUser ] = useState({
         username: "",
         password: "",
@@ -39,8 +42,14 @@ function Signup(props) {
         }
         axios.get("http://localhost:8080/servlet_study_yerim/auth/signup/duplicate/username", option)
         .then((response) => {
-            console.log(response);
-        })
+            axios.post("http://localhost:8080/servlet_study_yerim/auth/signup", signupUser)
+            .then((response) => {
+                alert(response.data);
+                navigate("/signin");
+            })
+        }).catch((error)=> {
+            alert("중복된 아이디입니다.");
+        });
     }
 
     return (
