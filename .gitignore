@@ -21,3 +21,26 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# [STS4]
+
+#folders
+bin
+target
+.settings
+
+#files
+.classpath
+project
+.factorypath
+
+
+# [intellij]
+
+#folders
+.idea
+
+#files
+*.iml
+# //*.확장자명 = (확장자명)을 사용하는 파일을 사용하지 않음
