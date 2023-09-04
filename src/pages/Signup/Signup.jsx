@@ -26,11 +26,13 @@ function Signup(props) {
         email: ""
     });
 
-    const handleInputChange = (e) => {
+    const handleInputChange = async (e) => {
         setSignupUser({
             ...signupUser,
             [e.target.name]: e.target.value
         })
+        
+        console.log(signupUser);
     }
 
     const handleSubmitClick = () => {
@@ -40,17 +42,31 @@ function Signup(props) {
                 username: signupUser.username
             }
         }
-        axios.get("http://localhost:8080/servlet_study_yerim/auth/signup/duplicate/username", option)
-        .then((response) => {
-            axios.post("http://localhost:8080/servlet_study_yerim/auth/signup", signupUser)
-            .then((response) => {
-                alert(response.data);
+        // async는 리턴이 프로미스임
+        const signup = async () => {
+            let response = await axios.get("http://localhost:8080/servlet_study_yerim/auth/signup/duplicate/username", option);
+
+            if(response.data) {
+                alert("중복된 아이디 입니다");
+                return;
+            }
+
+            try {
+                response = await axios.post("http://localhost:8080/servlet_study_yerim/auth/signup", signupUser);
+                if(!response.data) {
+                    throw new Error(response);
+                }
+                alert("회원가입 성공!");
                 navigate("/signin");
-            })
-        }).catch((error)=> {
-            alert("중복된 아이디입니다.");
-        });
+            }catch(error) {
+                console.log(error);
+            }
+
+        };
+
+        signup();
     }
+
 
     return (
         <>

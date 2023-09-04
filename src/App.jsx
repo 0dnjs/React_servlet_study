@@ -5,6 +5,7 @@ import MainLayout from './components/MainLayout/MainLayout';
 import { Route, Routes } from "react-router-dom";
 import Signup from "./pages/Signup/Signup";
 import Asynchronous from "./pages/Asynchronous/Asynchronous";
+import Signin from "./pages/Signin/Signin";
 
 const SCommon = css`
   *{
@@ -19,7 +20,7 @@ function App() {
       <MainLayout>
         <Routes>
           <Route path="/"/>
-          <Route path="/signin" element={ <></> }/>
+          <Route path="/signin" element={ <Signin /> }/>
           <Route path="/signup" element={ <Signup /> }/>
           <Route path="/async" element={ <Asynchronous /> }/>
         </Routes>
